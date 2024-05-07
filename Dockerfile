@@ -4,6 +4,25 @@ FROM ubuntu:20.04
 RUN apt-get update
 RUN apt-get install -y \
     build-essential \
+    openjdk-11-jdk-headless \
+    fp-compiler \
+    postgresql \
+    postgresql-client \
+    python3.8 \
+    cppreference-doc-en-html \
+    cgroup-lite \
+    libcap-dev \
+    zip \
+    python3.8-dev \
+    libpq-dev \
+    libcups2-dev \
+    libyaml-dev \
+    libffi-dev \
+    python3-pip
+
+'''
+RUN apt-get install -y \
+    build-essential \
     cgroup-lite \
     cppreference-doc-en-html \
     fp-compiler \
@@ -26,7 +45,7 @@ RUN apt-get install -y \
     sudo \
     wait-for-it \
     zip
-
+'''
 # Create cmsuser user with sudo privileges
 RUN useradd -ms /bin/bash cmsuser && \
     usermod -aG sudo cmsuser
@@ -54,4 +73,4 @@ RUN sudo sed 's|/cmsuser:your_password_here@localhost:5432/cmsdb"|/postgres@cms_
 
 ENV LANG C.UTF-8
 
-CMD [""]
+CMD ["tail", "-f", "/dev/null"]

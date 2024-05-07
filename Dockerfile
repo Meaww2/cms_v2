@@ -2,10 +2,12 @@
 FROM ubuntu:20.04
 
 RUN apt-get update
+RUN apt-get upgrade -y \
 RUN apt-get install -y \
+    tzdata \
+    sudo \
     build-essential \
-    openjdk-11-jdk-headless \
-    fp-compiler \
+    # openjdk-17-jdk-headless \
     postgresql \
     postgresql-client \
     python3.8 \
@@ -18,7 +20,8 @@ RUN apt-get install -y \
     libcups2-dev \
     libyaml-dev \
     libffi-dev \
-    python3-pip
+    python3-pip \
+
 
 # RUN apt-get install -y \
 #     build-essential \
@@ -59,13 +62,12 @@ COPY --chown=cmsuser:cmsuser requirements.txt dev-requirements.txt /home/cmsuser
 WORKDIR /home/cmsuser/cms
 
 RUN sudo pip3 install -r requirements.txt
-RUN sudo pip3 install -r dev-requirements.txt
 
 COPY --chown=cmsuser:cmsuser . /home/cmsuser/cms
 
+RUN sudo python3 prerequisites.py --yes --cmsuser=cmsuser install
 RUN sudo python3 setup.py install
 
-RUN sudo python3 prerequisites.py --yes --cmsuser=cmsuser install
 
 RUN sudo sed 's|/cmsuser:your_password_here@localhost:5432/cmsdb"|/postgres@cms_test_db:5432/cmsdbfortesting"|' ./config/cms.conf.sample \
     | sudo tee /usr/local/etc/cms-testdb.conf

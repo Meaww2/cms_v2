@@ -20,32 +20,31 @@ RUN apt-get install -y \
     libffi-dev \
     python3-pip
 
-'''
-RUN apt-get install -y \
-    build-essential \
-    cgroup-lite \
-    cppreference-doc-en-html \
-    fp-compiler \
-    git \
-    haskell-platform \
-    libcap-dev \
-    libcups2-dev \
-    libffi-dev \
-    libpq-dev \
-    libyaml-dev \
-    mono-mcs \
-    openjdk-8-jdk-headless \
-    php7.4-cli \
-    postgresql-client \
-    python2 \
-    python3-pip \
-    python3.8 \
-    python3.8-dev \
-    rustc \
-    sudo \
-    wait-for-it \
-    zip
-'''
+# RUN apt-get install -y \
+#     build-essential \
+#     cgroup-lite \
+#     cppreference-doc-en-html \
+#     fp-compiler \
+#     git \
+#     haskell-platform \
+#     libcap-dev \
+#     libcups2-dev \
+#     libffi-dev \
+#     libpq-dev \
+#     libyaml-dev \
+#     mono-mcs \
+#     openjdk-8-jdk-headless \
+#     php7.4-cli \
+#     postgresql-client \
+#     python2 \
+#     python3-pip \
+#     python3.8 \
+#     python3.8-dev \
+#     rustc \
+#     sudo \
+#     wait-for-it \
+#     zip
+
 # Create cmsuser user with sudo privileges
 RUN useradd -ms /bin/bash cmsuser && \
     usermod -aG sudo cmsuser

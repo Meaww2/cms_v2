@@ -1,11 +1,15 @@
 #!/bin/bash
 # @Author: kitt k
 # @Date:   2024-05-08 00:23:58
-# @Last Modified by:   kitt k
-# @Last Modified time: 2024-05-08 08:45:24
+# @Last Modified by:   kk
+# @Last Modified time: 2024-05-08 13:59:42
+POSTGRESQL_PASSWD="cms1234cmu"
+ADMIN="cmuadmin"
+ADMIN_PASS="cmu1234cms"
+
 cd $HOME/cms
 
-POSTGRESQL_PASSWD="cms1234cmu"
+
 cp ./config/cms.conf.sample ./config/cms.conf
 
 # Read the JSON file
@@ -20,6 +24,9 @@ updated_json=$(echo "$json" | sed -E "s|\"database\": \"postgresql\+psycopg2://c
 # Write the updated JSON back to the file
 echo "$updated_json" > ./config/cms.conf
 sudo cp ./config/cms.conf /usr/local/etc/cms.conf
+
+sudo service postgresql start
+
 
 # # Read the JSON file
 # json=$(cat ./config/cms.conf)
@@ -48,3 +55,5 @@ sudo -u postgres psql -c "ALTER SCHEMA public OWNER TO cmsuser" --dbname=cmsdb
 sudo -u postgres psql -c "GRANT SELECT ON pg_largeobject TO cmsuser" --dbname=cmsdb
 
 cmsInitDB
+cmsAddAdmin $ADMIN -p $ADMIN_PASS
+cmsDumpImporter ./dump/dump_2024-05-08.tar.gz

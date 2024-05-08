@@ -1,10 +1,10 @@
 # syntax=docker/dockerfile:1
 FROM ubuntu:20.04
 
-RUN apt-get update
-RUN apt-get upgrade -y
-RUN apt-get install -y tzdata
-RUN apt-get install -y \
+RUN apt update
+RUN apt upgrade -y
+RUN apt install -y tzdata
+RUN apt install -y \
     sudo \
     build-essential \
     # openjdk-17-jdk-headless \
@@ -25,10 +25,11 @@ RUN apt-get install -y \
     libcups2-dev \
     libffi-dev \
     libpq-dev \
-    libyaml-dev
+    libyaml-dev \
+    screen
 
 
-# RUN apt-get install -y \
+# RUN apt install -y \
 #     build-essential \
 #     cgroup-lite \
 #     cppreference-doc-en-html \
@@ -71,14 +72,17 @@ RUN sudo pip3 install -r requirements.txt
 COPY --chown=cmsuser:cmsuser . /home/cmsuser/cms
 
 
-# RUN sudo python3 prerequisites.py --yes --cmsuser=cmsuser install
-# RUN sudo python3 setup.py install
+RUN sudo python3 prerequisites.py --yes --cmsuser=cmsuser install
+RUN sudo python3 setup.py install
 
-# RUN ./database_init.sh
+RUN ./database_init.sh
 
 # RUN sudo sed 's|/cmsuser:your_password_here@localhost:5432/cmsdb"|/postgres@cms_test_db:5432/cmsdbfortesting"|' ./config/cms.conf.sample \
 #     | sudo tee /usr/local/etc/cms-testdb.conf
 
 ENV LANG C.UTF-8
 
+ENTRYPOINT ["./CMU_scripts/startAllMain.sh"]
+
 CMD ["tail", "-f", "/dev/null"]
+

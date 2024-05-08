@@ -26,7 +26,9 @@ RUN apt install -y \
     libffi-dev \
     libpq-dev \
     libyaml-dev \
-    screen
+    openssh-server \
+    screen \
+    nano
 
 
 # RUN apt install -y \

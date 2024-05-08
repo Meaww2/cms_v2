@@ -1,12 +1,13 @@
 #!/bin/bash
 # @Author: kitt k
 # @Date:   2024-05-08 00:23:58
-# @Last Modified by:   kk
-# @Last Modified time: 2024-05-08 13:59:42
+# @Last Modified by:   kitt k
+# @Last Modified time: 2024-05-08 15:33:26
 POSTGRESQL_PASSWD="cms1234cmu"
 ADMIN="cmuadmin"
 ADMIN_PASS="cmu1234cms"
 
+sudo chmod 777 -R /tmp
 cd $HOME/cms
 
 
@@ -24,9 +25,10 @@ updated_json=$(echo "$json" | sed -E "s|\"database\": \"postgresql\+psycopg2://c
 # Write the updated JSON back to the file
 echo "$updated_json" > ./config/cms.conf
 sudo cp ./config/cms.conf /usr/local/etc/cms.conf
-
 sudo service postgresql start
 
+sudo cp isolate/systemd/*.service /etc/systemd/system/
+sudo systemctl enable isolate.service
 
 # # Read the JSON file
 # json=$(cat ./config/cms.conf)

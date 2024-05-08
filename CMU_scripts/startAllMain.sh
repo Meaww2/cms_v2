@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# export SCREENDIR=$HOME/.screen
 # THIS ONE IS FOR ALL OTHER MACHINES except MAIN AND SCOREBOARD
 # Add CMS Location to Environment (for crontab)
 sudo service postgresql start

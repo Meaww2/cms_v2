@@ -2,7 +2,7 @@
 # export SCREENDIR=$HOME/.screen
 # THIS ONE IS FOR ALL OTHER MACHINES except MAIN AND SCOREBOARD
 # Add CMS Location to Environment (for crontab)
-# sudo service postgresql restart
+sudo service postgresql restart
 # sudo chown -R cmsuser /home/cmsuser/cms
 
 PATH=$PATH:/usr/local/bin

@@ -8,7 +8,8 @@ ADMIN="cmuadmin"
 ADMIN_PASS="cmu1234cms"
 
 sudo chmod 777 -R /tmp
-cd $HOME/cms
+SCRIPTPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"/
+cd $SCRIPTPATH
 
 
 cp ./config/cms.conf.sample ./config/cms.conf
@@ -56,6 +57,7 @@ sudo -u postgres psql -c "ALTER SCHEMA public OWNER TO cmsuser" --dbname=cmsdb
 # Connect to the 'cmsdb' database and grant 'cmsuser' the 'SELECT' permission on the 'pg_largeobject' system table
 sudo -u postgres psql -c "GRANT SELECT ON pg_largeobject TO cmsuser" --dbname=cmsdb
 
+cmsDropDB
 cmsInitDB
 cmsAddAdmin $ADMIN -p $ADMIN_PASS
 cmsDumpImporter ./dump/dump_2024-05-08.tar.gz

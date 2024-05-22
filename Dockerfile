@@ -1,6 +1,8 @@
 # syntax=docker/dockerfile:1
 FROM ubuntu:20.04
 
+RUN sed -i -e 's|http://archive.ubuntu.com/ubuntu/|http://mirror.kku.ac.th/ubuntu/|g' /etc/apt/sources.list
+
 RUN apt update
 RUN apt upgrade -y
 RUN apt install -y tzdata
@@ -84,7 +86,7 @@ RUN ./database_init.sh
 
 ENV LANG C.UTF-8
 
-ENTRYPOINT ["./CMU_scripts/startAllMain.sh"]
+# ENTRYPOINT ["./CMU_scripts/startAllMain.sh"]
 
 CMD ["tail", "-f", "/dev/null"]
 
